@@ -61,15 +61,23 @@ public class TrackingRepository {
         return item.getItem().stream().filter(x -> x.getItemId() == id).findAny().orElse(null);
     }
 
+
 //    @PutMapping("/{id}")
     // test comment
     public void update(Item item,int orderId) {
         Order x = getOrderById(orderId);
         if (x != null) {
-            Item i = x.getInvoiceItem().getItem().get(item.getItemId()-1);
+            Item i = getItemById(item.getItemId(),getOrderById(orderId));
             if (i != null) {
-                x.getInvoiceItem().getItem().get(item.getItemId()-1).setStatus(item.getStatus());
+                i.setStatus(item.getStatus());
+//                x.getInvoiceItem().getItem().get(item.getItemId()-1).setStatus(item.getStatus());
             }
+            else {
+                throw new IllegalStateException("item not valid");
+            }
+        }
+        else {
+            throw new IllegalStateException("order not valid");
         }
     }
 
