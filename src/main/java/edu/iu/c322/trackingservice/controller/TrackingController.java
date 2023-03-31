@@ -17,19 +17,7 @@ public class TrackingController {
 
     @GetMapping("/{orderId}/{itemId}")
     public Item findByOrderId(@PathVariable int orderId, @PathVariable int itemId) {
-        Order order = trackingRepository.getOrderById(orderId);
-        if (order != null) {
-            Item item = trackingRepository.getItemById(itemId,order);
-            if (item != null) {
-                return item;
-            }
-            else {
-                throw new IllegalStateException("item not valid");
-            }
-        }
-        else {
-            throw new IllegalStateException("order not valid");
-        }
+        return trackingRepository.findByOrderId(orderId,itemId);
     }
 
     @PutMapping("/{orderId}")

@@ -1,6 +1,7 @@
 package edu.iu.c322.trackingservice.fakedata;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,22 @@ public class TrackingRepository {
             if (i != null) {
                 x.getInvoiceItem().getItem().get(item.getItemId()-1).setStatus(item.getStatus());
             }
+        }
+    }
+
+    public Item findByOrderId(int orderId,int itemId) {
+        Order order = getOrderById(orderId);
+        if (order != null) {
+            Item item = getItemById(itemId,order);
+            if (item != null) {
+                return item;
+            }
+            else {
+                throw new IllegalStateException("item not valid");
+            }
+        }
+        else {
+            throw new IllegalStateException("order not valid");
         }
     }
 
