@@ -70,7 +70,6 @@ public class TrackingRepository {
             Item i = getItemById(item.getItemId(),getOrderById(orderId));
             if (i != null) {
                 i.setStatus(item.getStatus());
-//                x.getInvoiceItem().getItem().get(item.getItemId()-1).setStatus(item.getStatus());
             }
             else {
                 throw new IllegalStateException("item not valid");
